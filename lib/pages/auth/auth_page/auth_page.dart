@@ -237,6 +237,7 @@ class _AuthPageState extends State<AuthPage> {
               color: HexColor(AppController.appData.value.primaryColor),
               title: 'تسجيل دخول',
               onPressed: () {
+                // AuthPageController().addAdmin(context);
                 authController.login(context);
                 // Get.offAll(const MainAdminPage());
               }),

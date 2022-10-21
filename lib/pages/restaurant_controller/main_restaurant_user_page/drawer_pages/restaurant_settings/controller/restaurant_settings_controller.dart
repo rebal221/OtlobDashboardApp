@@ -132,8 +132,7 @@ class RestaurantSettingsController extends GetxController {
       getSheetSucsses('جاري تنفيذ العملية');
       Uint8List fileBytes = result.files.first.bytes!;
       String fileName = result.files.first.name;
-      String pathFile =
-          fileName + DateTime.now().microsecondsSinceEpoch.toString();
+      String pathFile = fileName;
       TaskSnapshot uploadTaskSnapshot = await FirebaseStorage.instance
           .ref('uploads/$pathFile')
           .putData(fileBytes);

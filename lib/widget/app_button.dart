@@ -17,7 +17,7 @@ class AppButton extends StatefulWidget {
   const AppButton(
       {Key? key,
       required this.color,
-      this.fontSize = 30,
+      this.fontSize = 25,
       this.isLoading = false,
       this.height = 70,
       this.borderRadiusButton = 12,

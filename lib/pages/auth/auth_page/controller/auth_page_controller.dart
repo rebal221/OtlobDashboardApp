@@ -263,7 +263,7 @@ class AuthPageController extends GetxController {
     isLoading.value = true;
     User? user = await FirebaseAuthController()
         .createAccount(context,
-            email: 'rebalaljrmani9@outlook.com', password: '123456')
+            email: 'otlobapp07@gmail.com', password: '123456')
         .catchError((onError) {
       isLoading.value = false;
       getSheetError(onError.toString());
@@ -271,9 +271,7 @@ class AuthPageController extends GetxController {
     if (user != null) {
       //ToDo here firestore function
       AdminModel admin = AdminModel.add(
-          email: 'rebalaljrmani9@outlook.com',
-          password: '123456',
-          uid: user.uid);
+          email: 'otlobapp07@gmail.com', password: '123456', uid: user.uid);
       bool status = await FirebaseFirestoreController()
           .addAdminToFirestore(admin: admin)
           .catchError((onError) {
