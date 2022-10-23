@@ -7,6 +7,7 @@ import 'package:otlab_controller/pages/auth/auth_page/controller/auth_page_contr
 import 'package:otlab_controller/server/controller/user_controller.dart';
 import 'package:otlab_controller/server/model/app_model.dart';
 import 'package:otlab_controller/server/model/category_model.dart';
+import 'package:otlab_controller/server/model/meal_model.dart';
 import 'package:otlab_controller/services/preferences/app_preferences.dart';
 import 'package:otlab_controller/utils/helpers.dart';
 import 'package:otlab_controller/value/constant.dart';
@@ -100,6 +101,21 @@ class FirebaseFirestoreController with Helpers {
         .set(restaurantModel.toMap())
         .then((value) {
       log('addRestaurantToFirestore done');
+      return true;
+    }).catchError((error) {
+      return false;
+    });
+  }
+
+  Future<bool> addMealToFirestore({
+    required MealModel mealModel,
+  }) async {
+    return await _firebaseFirestore
+        .collection('meals')
+        .doc(mealModel.restaurantID)
+        .set(mealModel.toMap())
+        .then((value) {
+      log('addMealToFirestore done');
       return true;
     }).catchError((error) {
       return false;

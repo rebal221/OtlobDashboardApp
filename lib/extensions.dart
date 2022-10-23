@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image_library/extended_image_library.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:otlab_controller/value/colors.dart';
+import 'package:otlab_controller/value/constant.dart';
 
 showSuccessBar(context, message) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -20,6 +23,12 @@ showSuccessBar(context, message) {
     //     bottom: MediaQuery.of(context).size.height - 100, right: 20, left: 20),
   ));
 }
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random _rnd = Random();
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
 showErrorBar(context, message) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -104,4 +113,48 @@ Future createrestaurant(
   };
 
   docUser.set(json);
+}
+
+Future createMeal({
+  required String restaurantID,
+  required String mealName,
+  required String mealDescription,
+  required String mealType,
+  required String mealPrice,
+  required String imageOne,
+  required String imageTow,
+  required String imageThree,
+}) async {
+  if (!restaurantID.isEmpty &&
+      !mealName.isEmpty &&
+      !mealDescription.isEmpty &&
+      !mealPrice.isEmpty &&
+      mealType != '') {
+    if (!imageOne.isEmpty && !imageTow.isEmpty && !imageThree.isEmpty) {
+      final docMeal = FirebaseFirestore.instance.collection('meals');
+      List<dynamic> images = [imageThree, imageTow, imageThree];
+      final json = {
+        'restaurantID': restaurantID,
+        'mealName': mealName,
+        'mealDescription': mealDescription,
+        'mealType': mealType,
+        'mealPrice': mealPrice,
+        'mealImages': images,
+        'mealCreatDate': DateTime.now().toString(),
+        'mealID': getRandomString(15)
+      };
+
+      docMeal.add(json).then((value) {
+        getSheetSucsses('تم إضافة الوجبة بنجاح');
+      }).onError((error, stackTrace) {
+        getSheetError(error.toString());
+      });
+    } else {
+      getSheetError('يرجى ادخال صور الوجبة');
+      return false;
+    }
+  } else {
+    getSheetError('يرجى ادخال جميع البيانات');
+    return false;
+  }
 }

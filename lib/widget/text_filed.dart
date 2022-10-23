@@ -35,44 +35,31 @@ class TextFieldAdd extends StatelessWidget {
     return SizedBox(
       height: heightSizeBox.h,
       width: width.w,
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: heightSizeBox.h,
-              width: widthSizeBox.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppTextStyle(
-                    name: tittle,
-                    fontSize: 22.sp,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  CustomTextFiledAdd(
-                    title: hint,
-                    controller: controller,
-                    type: type,
-                    enable: enable,
-                    suffix: suffix,
-                    height: height.h,
-                    textAlign: textAlign,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                ],
-              ),
-            ),
-          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppTextStyle(
+            name: tittle,
+            fontSize: 22.sp,
+            color: Colors.grey.shade800,
+            fontWeight: FontWeight.w600,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          CustomTextFiledAdd(
+            title: hint,
+            controller: controller,
+            type: type,
+            enable: enable,
+            suffix: suffix,
+            height: height.h,
+            textAlign: textAlign,
+          ),
+        ],
+      ),
     );
   }
 }

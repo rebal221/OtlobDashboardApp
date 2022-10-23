@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:otlab_controller/models_widgets/food_model.dart';
 import 'package:otlab_controller/my_library.dart';
@@ -24,13 +26,6 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
 
   FoodWidgetModel foodSelected = FoodWidgetModel('اختر الوجبة التي عليها خصم');
 
-  List<FoodWidgetModel> items = <FoodWidgetModel>[
-    FoodWidgetModel('name1'),
-    FoodWidgetModel('name2'),
-    FoodWidgetModel('name3'),
-    FoodWidgetModel('name4'),
-    FoodWidgetModel('name5'),
-  ];
   @override
   void initState() {
     // TODO: implement initState
@@ -48,6 +43,18 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('meals')
+        .where('restaurantID',
+            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      List<FoodWidgetModel> items = <FoodWidgetModel>[];
+      for (var i = 0; i < value.size; i++) {
+        print(value.docs[i]['mealName']);
+      }
+    });
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: ListView(
@@ -88,7 +95,8 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
                   shrinkWrap: true,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   itemBuilder: (context, index) {
-                    return const ListFoodWidget();
+                    // return const ListFoodWidget();
+                    return Text('data');
                   },
                   itemCount: 20,
                 ),
@@ -179,29 +187,29 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        SizedBox(
-                                          height: 70.h,
-                                          child: DropDownSearchFood(
-                                              formKey: _formKeyDropDownFood,
-                                              items: items,
-                                              onSaved:
-                                                  (FoodWidgetModel? value) {},
-                                              onChange: (FoodWidgetModel?
-                                                  value) async {
-                                                if (value != null) {
-                                                  widget.setState(() {
-                                                    // appGet.categoryArray.clear();
-                                                    foodSelected = value;
-                                                    food = value;
-                                                    foodSelected.name =
-                                                        value.name;
-                                                    debugPrint(
-                                                        'new value food is ${food.name}');
-                                                  });
-                                                }
-                                              },
-                                              foodModel: food),
-                                        ),
+                                        // SizedBox(
+                                        //   height: 70.h,
+                                        //   child: DropDownSearchFood(
+                                        //       formKey: _formKeyDropDownFood,
+                                        //       items: items,
+                                        //       onSaved:
+                                        //           (FoodWidgetModel? value) {},
+                                        //       onChange: (FoodWidgetModel?
+                                        //           value) async {
+                                        //         if (value != null) {
+                                        //           widget.setState(() {
+                                        //             // appGet.categoryArray.clear();
+                                        //             foodSelected = value;
+                                        //             food = value;
+                                        //             foodSelected.name =
+                                        //                 value.name;
+                                        //             debugPrint(
+                                        //                 'new value food is ${food.name}');
+                                        //           });
+                                        //         }
+                                        //       },
+                                        //       foodModel: food),
+                                        // ),
                                         SizedBox(
                                           height: 20.h,
                                         ),
@@ -229,7 +237,11 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
                                         color: HexColor(AppController
                                             .appData.value.primaryColor),
                                         title: 'اضافة الخصم',
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          // if (checkDiscountData()) {
+                                          //   return ture;
+                                          // }
+                                        }),
                                   ),
                                   SizedBox(
                                     width: 20.w,

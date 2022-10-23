@@ -28,6 +28,7 @@ class AuthPageController extends GetxController {
     email = TextEditingController();
     password = TextEditingController();
     confirmPassword = TextEditingController();
+
     NetworkController().initConnectivity();
 
     super.onReady();
@@ -285,3 +286,5 @@ class AuthPageController extends GetxController {
     }
   }
 }
+
+// Future<void> checkDiscountData(context,String )async{}
