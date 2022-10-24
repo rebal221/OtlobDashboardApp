@@ -601,17 +601,6 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        SizedBox(
-                                          height: 70.h,
-                                          width: 140.w,
-                                          child: AppButton(
-                                              title: 'الغاء',
-                                              onPressed: () {},
-                                              color: Colors.grey.shade800),
-                                        ),
-                                        SizedBox(
                                           width: 30.w,
                                         ),
                                       ],

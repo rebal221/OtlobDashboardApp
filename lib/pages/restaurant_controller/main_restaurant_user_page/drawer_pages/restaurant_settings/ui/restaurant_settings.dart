@@ -313,41 +313,6 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                       ),
 
                                       //ToDo: here from price and to price
-
-                                      SizedBox(
-                                        width: 120.w,
-                                        child: TextFieldAdd(
-                                          width: 100.w,
-                                          widthSizeBox: 100.w,
-                                          tittle: 'متوسط الاسعار',
-                                          hint: 'من',
-                                          height: 100,
-                                          heightSizeBox: 160,
-                                          textAlign: TextAlign.center,
-                                          controller: controller.pricingFrom,
-                                          type: TextInputType.number,
-                                          enable: false,
-                                        ),
-                                      ),
-
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      SizedBox(
-                                        width: 100.w,
-                                        child: TextFieldAdd(
-                                          width: 90.w,
-                                          height: 100,
-                                          heightSizeBox: 160,
-                                          widthSizeBox: 90.w,
-                                          tittle: '',
-                                          hint: 'الى',
-                                          textAlign: TextAlign.center,
-                                          controller: controller.pricingTow,
-                                          type: TextInputType.number,
-                                          enable: false,
-                                        ),
-                                      ),
                                     ],
                                   ),
                                   SizedBox(
@@ -385,125 +350,154 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                             ),
                             SizedBox(
                               height: 200.h,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  AppTextStyle(
-                                    name: 'وسائل الدفع',
-                                    fontSize: 22.sp,
-                                    color: Colors.grey.shade800,
-                                    fontWeight: FontWeight.w600,
+                                  SizedBox(
+                                    width: 120.w,
+                                    child: TextFieldAdd(
+                                      width: 100.w,
+                                      widthSizeBox: 100.w,
+                                      tittle: 'متوسط الاسعار',
+                                      hint: 'من',
+                                      height: 100,
+                                      heightSizeBox: 160,
+                                      textAlign: TextAlign.center,
+                                      controller: controller.pricingFrom,
+                                      type: TextInputType.number,
+                                      enable: false,
+                                    ),
                                   ),
                                   SizedBox(
-                                    height: 10.h,
+                                    width: 20.w,
                                   ),
                                   SizedBox(
-                                    height: 100.h,
-                                    width: 700.w,
-                                    child: Card(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                            color: AppColors.grey,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.r)),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 8.w),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 620.w,
-                                              height: 100.h,
-                                              child: GetBuilder<
-                                                  RestaurantSettingsController>(
-                                                assignId: true,
-                                                builder: (logic) {
-                                                  return ListView.builder(
-                                                      clipBehavior: Clip
-                                                          .antiAliasWithSaveLayer,
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      itemCount: controller
-                                                          .paymentMethodList
-                                                          .length,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            height: 150.h,
-                                                            width: 150.w,
-                                                            child:
-                                                                Directionality(
-                                                              textDirection:
-                                                                  TextDirection
-                                                                      .ltr,
-                                                              child: Obx(() {
-                                                                return CheckboxListTile(
-                                                                  selected: controller
-                                                                      .paymentMethodList[
-                                                                          index]
-                                                                      .value
-                                                                      .active,
-                                                                  contentPadding:
-                                                                      EdgeInsets.symmetric(
-                                                                          vertical:
-                                                                              20.h),
-                                                                  activeColor: HexColor(
-                                                                      AppController
-                                                                          .appData
-                                                                          .value
-                                                                          .primaryColor),
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.r)),
-                                                                  checkColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  value: controller
-                                                                      .paymentMethodList[
-                                                                          index]
-                                                                      .value
-                                                                      .active,
-                                                                  onChanged:
-                                                                      (value) {
-                                                                    controller.updateSelectedValue(
-                                                                        value,
-                                                                        index,
-                                                                        controller
-                                                                            .paymentMethodList[index]
-                                                                            .value
-                                                                            .tittle);
-                                                                  },
-                                                                  title:
-                                                                      CustomSvgImage(
-                                                                    imageName: controller
-                                                                        .paymentMethodList[
-                                                                            index]
-                                                                        .value
-                                                                        .imagePath,
-                                                                  ),
-                                                                );
-                                                              }),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      });
-                                                },
+                                    width: 100.w,
+                                    child: TextFieldAdd(
+                                      width: 90.w,
+                                      height: 100,
+                                      heightSizeBox: 160,
+                                      widthSizeBox: 90.w,
+                                      tittle: '',
+                                      hint: 'الى',
+                                      textAlign: TextAlign.center,
+                                      controller: controller.pricingTow,
+                                      type: TextInputType.number,
+                                      enable: false,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: 15),
+                                      AppTextStyle(
+                                        name: 'وسائل الدفع',
+                                        fontSize: 22.sp,
+                                        color: Colors.grey.shade800,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      SizedBox(
+                                        height: 70.h,
+                                        child: Card(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              side: const BorderSide(
+                                                color: AppColors.grey,
                                               ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r)),
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          child: SizedBox(
+                                            width: 150.w,
+                                            height: 70.h,
+                                            child: GetBuilder<
+                                                RestaurantSettingsController>(
+                                              assignId: true,
+                                              builder: (logic) {
+                                                return ListView.builder(
+                                                    clipBehavior: Clip
+                                                        .antiAliasWithSaveLayer,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: controller
+                                                        .paymentMethodList
+                                                        .length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          height: 70.h,
+                                                          width: 150.w,
+                                                          child: Directionality(
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .ltr,
+                                                            child: Obx(() {
+                                                              return CheckboxListTile(
+                                                                enabled: false,
+                                                                selected: controller
+                                                                    .paymentMethodList[
+                                                                        index]
+                                                                    .value
+                                                                    .active,
+                                                                activeColor: HexColor(
+                                                                    AppController
+                                                                        .appData
+                                                                        .value
+                                                                        .primaryColor),
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            12.r)),
+                                                                checkColor:
+                                                                    Colors
+                                                                        .white,
+                                                                value: controller
+                                                                    .paymentMethodList[
+                                                                        index]
+                                                                    .value
+                                                                    .active,
+                                                                onChanged:
+                                                                    (value) {
+                                                                  controller.updateSelectedValue(
+                                                                      value,
+                                                                      index,
+                                                                      controller
+                                                                          .paymentMethodList[
+                                                                              index]
+                                                                          .value
+                                                                          .tittle);
+                                                                },
+                                                                title:
+                                                                    CustomSvgImage(
+                                                                  imageName: controller
+                                                                      .paymentMethodList[
+                                                                          index]
+                                                                      .value
+                                                                      .imagePath,
+                                                                ),
+                                                              );
+                                                            }),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
+                                              },
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -532,7 +526,7 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                     height: 10.h,
                                   ),
                                   SizedBox(
-                                    height: 60.h,
+                                    height: 70.h,
                                     width: 200.w,
                                     child: Card(
                                       color: Colors.white,
@@ -618,7 +612,7 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                     height: 10.h,
                                   ),
                                   SizedBox(
-                                    height: 60.h,
+                                    height: 70.h,
                                     width: 200.w,
                                     child: Card(
                                       color: Colors.white,
@@ -704,7 +698,7 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                     height: 10.h,
                                   ),
                                   SizedBox(
-                                    height: 60.h,
+                                    height: 70.h,
                                     width: 200.w,
                                     child: Card(
                                       color: Colors.white,
@@ -719,7 +713,7 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 8.w),
                                         child: SizedBox(
-                                          height: 60.h,
+                                          height: 70.h,
                                           width: 200.w,
                                           child: Directionality(
                                             textDirection: TextDirection.ltr,
@@ -770,7 +764,7 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                 width: 400.w,
                                 tittle: 'رقم التواصل',
                                 hint: 'أدخل رقم التواصل',
-                                height: 80,
+                                height: 100,
                                 heightSizeBox: 140,
                                 controller: controller.number,
                                 type: TextInputType.number,

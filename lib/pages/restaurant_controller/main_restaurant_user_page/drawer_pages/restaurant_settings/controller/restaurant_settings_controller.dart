@@ -41,9 +41,9 @@ class RestaurantSettingsController extends GetxController {
   RxString timeToAsString = ''.obs;
   RxList<Rx<CheckBoxModel>> paymentMethodList = <Rx<CheckBoxModel>>[
     CheckBoxModel(imagePath: 'pay', tittle: 'Paypal').obs,
-    CheckBoxModel(imagePath: 'visa', tittle: 'VISA').obs,
-    CheckBoxModel(imagePath: 'master', tittle: 'Master').obs,
-    CheckBoxModel(imagePath: 'cash', tittle: 'Cash').obs,
+    // CheckBoxModel(imagePath: 'visa', tittle: 'VISA').obs,
+    // CheckBoxModel(imagePath: 'master', tittle: 'Master').obs,
+    // CheckBoxModel(imagePath: 'cash', tittle: 'Cash').obs,
   ].obs;
 
   @override

@@ -431,30 +431,68 @@ class _ListFoodBodyState extends State<ListFoodBody> {
                                                   ),
                                                   SizedBox(
                                                     width: 90.w,
-                                                    child: Card(
-                                                      elevation: 4,
-                                                      shape:
-                                                          RoundedRectangleBorder(
+                                                    child: MouseRegion(
+                                                      cursor: SystemMouseCursors
+                                                          .click,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'meals')
+                                                              .where('mealID',
+                                                                  isEqualTo: data[
+                                                                          index]
+                                                                      [
+                                                                      'mealID'])
+                                                              .get()
+                                                              .then((value) {
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'meals')
+                                                                .doc(value
+                                                                    .docs[0].id)
+                                                                .delete()
+                                                                .then((value) {
+                                                              getSheetSucsses(
+                                                                  'تم خذف وجبة ' +
+                                                                      data[index]
+                                                                          [
+                                                                          'mealName'] +
+                                                                      '');
+                                                            });
+                                                          });
+                                                        },
+                                                        child: Card(
+                                                          elevation: 4,
+                                                          shape: RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           8.r)),
-                                                      color: HexColor(
-                                                          AppController
-                                                              .appData
-                                                              .value
-                                                              .secondColor),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            10.r),
-                                                        child: AppTextStyle(
-                                                          name: 'حذف',
-                                                          color: Colors.white,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          fontSize: 18.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                          color: HexColor(
+                                                              AppController
+                                                                  .appData
+                                                                  .value
+                                                                  .secondColor),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10.r),
+                                                            child: AppTextStyle(
+                                                              name: 'حذف',
+                                                              color:
+                                                                  Colors.white,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              fontSize: 18.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),

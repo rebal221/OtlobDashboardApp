@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:otlab_controller/my_library.dart';
@@ -9,6 +10,7 @@ import 'package:otlab_controller/server/firebase_store.dart';
 import 'package:otlab_controller/widget/app_button.dart';
 import 'package:otlab_controller/widget/custom_image.dart';
 import 'package:otlab_controller/widget/text_filed_edit.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class AppSettingBody extends StatefulWidget {
   StateSetter setState;
@@ -45,6 +47,23 @@ class _AppSettingBodyState extends State<AppSettingBody> {
   bool iconEditEnableFacebook = false;
   bool iconEditEnableTwitter = false;
   bool iconEditEnableYoutube = false;
+  final RoundedLoadingButtonController _btnController2 =
+      RoundedLoadingButtonController();
+
+  TextEditingController appName =
+      TextEditingController(text: AppController.appData.value.appName);
+  TextEditingController appPrivacy =
+      TextEditingController(text: AppController.appData.value.appPrivacy);
+  TextEditingController appPhone =
+      TextEditingController(text: AppController.appData.value.appPhone);
+  TextEditingController appOnGooglePlay =
+      TextEditingController(text: AppController.appData.value.appOnGooglePlay);
+  TextEditingController appFacebook =
+      TextEditingController(text: AppController.appData.value.appFacebook);
+  TextEditingController appTwitter =
+      TextEditingController(text: AppController.appData.value.appTwitter);
+  TextEditingController appYoutube =
+      TextEditingController(text: AppController.appData.value.appYoutube);
 
   @override
   void setState(VoidCallback fn) {
@@ -124,8 +143,8 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                               child: Card(
                                                 child: Center(
                                                   child: CustomImageNetwork(
-                                                    imageUrl:
-                                                        'https://firebasestorage.googleapis.com/v0/b/otlab-ps.appspot.com/o/Group%20149.png?alt=media&token=76a3692f-2ff6-4b21-a086-015706d12de5',
+                                                    imageUrl: AppController
+                                                        .appData.value.appLogo,
                                                     height: 120.h,
                                                     width: 120.w,
                                                   ),
@@ -245,7 +264,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'اسم التطبيق',
-                                controller: TextEditingController(text: 'أطلب'),
+                                controller: appName,
                                 type: TextInputType.text,
                               ),
                             ),
@@ -280,8 +299,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'رقم التواصل',
-                                controller:
-                                    TextEditingController(text: '+20102014699'),
+                                controller: appPhone,
                                 type: TextInputType.text,
                               ),
                             ),
@@ -322,11 +340,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'سياسة الخصوصية',
-                                controller: TextEditingController(
-                                    text:
-                                        '''هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
-إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع.
-'''),
+                                controller: appPrivacy,
                                 type: TextInputType.multiline,
                               ),
                             ),
@@ -366,9 +380,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'رابط التقييم في متجر جوجل',
-                                controller: TextEditingController(
-                                    text:
-                                        'https://www.google.com/playstore/otlob-rate/'),
+                                controller: appOnGooglePlay,
                                 type: TextInputType.text,
                               ),
                             ),
@@ -403,8 +415,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'رابط فيسبوك',
-                                controller: TextEditingController(
-                                    text: 'https://www.facebook.com'),
+                                controller: appFacebook,
                                 type: TextInputType.text,
                               ),
                             ),
@@ -440,8 +451,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'رابط تويتر',
-                                controller: TextEditingController(
-                                    text: 'https://www.twitter.com'),
+                                controller: appTwitter,
                                 type: TextInputType.text,
                               ),
                             ),
@@ -476,8 +486,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                   },
                                 ),
                                 hint: 'رابط يوتيوب',
-                                controller: TextEditingController(
-                                    text: 'https://www.youtube.com'),
+                                controller: appYoutube,
                                 type: TextInputType.text,
                               ),
                             ),
@@ -496,22 +505,31 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                                     SizedBox(
                                       height: 50.h,
                                       width: 140.w,
-                                      child: AppButton(
-                                          color: HexColor(AppController
-                                              .appData.value.primaryColor),
-                                          title: 'حفظ التعديلات',
-                                          onPressed: () {}),
-                                    ),
-                                    SizedBox(
-                                      width: 20.w,
-                                    ),
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 140.w,
-                                      child: AppButton(
-                                          title: 'الغاء',
-                                          onPressed: () {},
-                                          color: Colors.grey.shade800),
+                                      child: RoundedLoadingButton(
+                                        color: HexColor(AppController
+                                            .appData.value.primaryColor),
+                                        successColor: AppColors.green,
+                                        controller: _btnController2,
+                                        onPressed: () {
+                                          FirebaseFirestore.instance
+                                              .collection('const')
+                                              .doc('wtgxrWQvgMRYExe7s2tH')
+                                              .update({
+                                            'appName': appName.text,
+                                            'appPhone': appPhone.text,
+                                            'appPrivacy': appPrivacy.text,
+                                            'appFacebook': appFacebook.text,
+                                            'appOnGooglePlay':
+                                                appOnGooglePlay.text,
+                                            'appYoutube': appYoutube.text,
+                                            'appTwitter': appTwitter.text,
+                                          }).then((value) =>
+                                                  _btnController2.success());
+                                        },
+                                        valueColor: Colors.white,
+                                        borderRadius: 10,
+                                        child: AppTextStyle(name: 'تعديل'),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 30.w,
@@ -567,7 +585,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                         //ToDo: here update function
                         bool status = await FirebaseFirestoreController()
                             .updateFirestore(
-                                doc: 'llLTEFzGiPxQdaDd1wO3',
+                                doc: 'wtgxrWQvgMRYExe7s2tH',
                                 key: 'primaryColor',
                                 value: finalColor,
                                 collectionName: 'const');
@@ -617,7 +635,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                         //ToDo: here update function
                         bool status = await FirebaseFirestoreController()
                             .updateFirestore(
-                                doc: 'llLTEFzGiPxQdaDd1wO3',
+                                doc: 'wtgxrWQvgMRYExe7s2tH',
                                 key: 'secondColor',
                                 value: finalColor,
                                 collectionName: 'const');
