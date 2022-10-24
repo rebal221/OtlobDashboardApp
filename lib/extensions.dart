@@ -158,3 +158,36 @@ Future createMeal({
     return false;
   }
 }
+
+Future createOffer(
+    {required String offerName,
+    required String offerType,
+    required String offerValue,
+    required String mealID,
+    required String image}) async {
+  if (!offerName.isEmpty &&
+      !offerType.isEmpty &&
+      !offerValue.isEmpty &&
+      !mealID.isEmpty) {
+    final docMeal = FirebaseFirestore.instance.collection('offers');
+    final json = {
+      'restaurantID': FirebaseAuth.instance.currentUser!.uid,
+      'offerName': offerName,
+      'offerType': offerType,
+      'offerValue': offerValue,
+      'offerCreatDate': DateTime.now().toString(),
+      'mealID': mealID,
+      'offerImage': image,
+      'offerId': getRandomString(18)
+    };
+
+    docMeal.add(json).then((value) {
+      getSheetSucsses('تم إضافة العرض بنجاح');
+    }).onError((error, stackTrace) {
+      getSheetError(error.toString());
+    });
+  } else {
+    getSheetError('يرجى ادخال جميع البيانات');
+    return false;
+  }
+}
