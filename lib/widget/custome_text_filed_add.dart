@@ -9,12 +9,14 @@ class CustomTextFiledAdd extends StatelessWidget {
   final bool isPassword;
   final TextInputType type;
   final bool enable;
+  final bool enabledata;
 
   const CustomTextFiledAdd({
     Key? key,
     required this.title,
     required this.controller,
     this.suffix,
+    this.enabledata = true,
     this.isPassword = false,
     this.textAlign = TextAlign.start,
     this.height = 70,
@@ -34,6 +36,7 @@ class CustomTextFiledAdd extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8.r)),
         child: TextFormField(
+          enabled: enabledata,
           keyboardType: type,
           // enabled: enable,
           readOnly: enable,

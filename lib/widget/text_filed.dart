@@ -15,6 +15,7 @@ class TextFieldAdd extends StatelessWidget {
   TextInputType type = TextInputType.text;
   TextEditingController controller = TextEditingController();
   final TextAlign textAlign;
+  final bool enabledata;
 
   TextFieldAdd(
       {super.key,
@@ -22,6 +23,7 @@ class TextFieldAdd extends StatelessWidget {
       required this.hint,
       this.type = TextInputType.text,
       this.enable = true,
+      this.enabledata = true,
       this.textAlign = TextAlign.start,
       this.height = 70,
       this.heightSizeBox = 140,
@@ -53,6 +55,7 @@ class TextFieldAdd extends StatelessWidget {
             title: hint,
             controller: controller,
             type: type,
+            enabledata: enabledata,
             enable: enable,
             suffix: suffix,
             height: height.h,

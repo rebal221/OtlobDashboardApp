@@ -12,6 +12,7 @@ import 'package:image_network/image_network.dart';
 import 'package:otlab_controller/extensions.dart';
 import 'package:otlab_controller/models_widgets/food_model.dart';
 import 'package:otlab_controller/my_library.dart';
+import 'package:otlab_controller/pages/restaurant_controller/main_restaurant_user_page/drawer_pages/restaurant_settings/controller/restaurant_settings_controller.dart';
 import 'package:otlab_controller/value/constant.dart';
 import 'package:otlab_controller/widget/app_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -38,6 +39,7 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
       RoundedLoadingButtonController();
   RxString imageOne = ''.obs;
   final _formKeyDropDownFood = GlobalKey<FormState>();
+  RestaurantSettingsController _controller = Get.find();
 
   List<String> items = <String>[];
   var formKey = GlobalKey<FormState>();
@@ -560,6 +562,14 @@ class _ListFoodDiscountPageState extends State<ListFoodDiscountPage> {
                                                               ['mealName'] ==
                                                           selectedValue) {
                                                         createOffer(
+                                                                restaurantName:
+                                                                    _controller
+                                                                        .nameRestaurant
+                                                                        .text,
+                                                                restaurantAddress:
+                                                                    _controller
+                                                                        .adderssRestaurant
+                                                                        .text,
                                                                 offerName:
                                                                     selectedValue
                                                                         .toString(),

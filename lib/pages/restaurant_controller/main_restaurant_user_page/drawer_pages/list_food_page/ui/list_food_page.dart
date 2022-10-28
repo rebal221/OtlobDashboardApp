@@ -39,6 +39,16 @@ class _ListFoodBodyState extends State<ListFoodBody> {
   final TextEditingController editmealName = TextEditingController();
   final TextEditingController editmealDescription = TextEditingController();
   final TextEditingController editmealPrice = TextEditingController();
+  TextEditingController ex1data = TextEditingController();
+  TextEditingController ex2data = TextEditingController();
+  TextEditingController ex3data = TextEditingController();
+  TextEditingController ex1price = TextEditingController();
+  TextEditingController ex2price = TextEditingController();
+  TextEditingController ex3price = TextEditingController();
+  bool ex1 = false;
+  bool ex2 = false;
+  bool ex3 = false;
+
   String? mealType;
   RxString imageOne = ''.obs;
   RxString imageTow = ''.obs;
@@ -540,7 +550,6 @@ class _ListFoodBodyState extends State<ListFoodBody> {
                         borderRadius: BorderRadius.circular(20.r)),
                   ),
                   child: SizedBox(
-                      height: 370.h,
                       width: 1600.w,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -638,208 +647,367 @@ class _ListFoodBodyState extends State<ListFoodBody> {
                               ),
                             ],
                           ),
-                          Row(
+                          Column(
                             children: [
-                              TextFieldAdd(
-                                width: 400.w,
-                                tittle: 'وصف الوجبة',
-                                hint: 'أدخل وصف الوجبة',
-                                height: 100,
-                                heightSizeBox: 140,
-                                controller: mealDescription,
-                                type: TextInputType.text,
-                                enable: false,
-                              ),
-                              SizedBox(
-                                width: 60.w,
-                              ),
-                              SizedBox(
-                                height: 210.h,
-                                width: 850.w,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppTextStyle(
-                                      name: 'صور للوجبة',
-                                      fontSize: 22.sp,
-                                      color: Colors.grey.shade800,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Row(
+                              Row(
+                                children: [
+                                  TextFieldAdd(
+                                    width: 400.w,
+                                    tittle: 'وصف الوجبة',
+                                    hint: 'أدخل وصف الوجبة',
+                                    height: 100,
+                                    heightSizeBox: 140,
+                                    controller: mealDescription,
+                                    type: TextInputType.text,
+                                    enable: false,
+                                  ),
+                                  SizedBox(
+                                    width: 60.w,
+                                  ),
+                                  SizedBox(
+                                    height: 210.h,
+                                    width: 850.w,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        SizedBox(
-                                          width: 150.w,
-                                          height: 150.h,
-                                          child: imageOne.value == ''
-                                              ? Card(
-                                                  child: InkWell(
-                                                  onTap: () {
-                                                    uploadMealImage(1);
-                                                  },
-                                                  child: Center(
-                                                    child: Icon(
-                                                        Icons
-                                                            .photo_size_select_actual_rounded,
-                                                        color: Colors.black,
-                                                        size: 75.r),
-                                                  ),
-                                                ))
-                                              : InkWell(
-                                                  onTap: () {},
-                                                  child: CustomImageNetwork(
-                                                    width: 150.w,
-                                                    height: 150.h,
-                                                    imageUrl: imageOne.value,
-                                                    boxFit: BoxFitWeb.contain,
-                                                  ),
-                                                ),
-                                        ),
-                                        SizedBox(
-                                          width: 30.w,
-                                        ),
-
-                                        SizedBox(
-                                          width: 150.w,
-                                          height: 150.h,
-                                          child: imageTow.value == ''
-                                              ? Card(
-                                                  child: InkWell(
-                                                  onTap: () {
-                                                    uploadMealImage(2);
-                                                  },
-                                                  child: Center(
-                                                    child: Icon(
-                                                        Icons
-                                                            .photo_size_select_actual_rounded,
-                                                        color: Colors.black,
-                                                        size: 75.r),
-                                                  ),
-                                                ))
-                                              : InkWell(
-                                                  onTap: () {},
-                                                  child: CustomImageNetwork(
-                                                    width: 150.w,
-                                                    height: 150.h,
-                                                    imageUrl: imageTow.value,
-                                                    boxFit: BoxFitWeb.contain,
-                                                  ),
-                                                ),
-                                        ),
-                                        SizedBox(
-                                          width: 30.w,
-                                        ),
-                                        SizedBox(
-                                          width: 150.w,
-                                          height: 150.h,
-                                          child: imageThree.value == ''
-                                              ? Card(
-                                                  child: InkWell(
-                                                  onTap: () {
-                                                    uploadMealImage(3);
-                                                  },
-                                                  child: Center(
-                                                    child: Icon(
-                                                        Icons
-                                                            .photo_size_select_actual_rounded,
-                                                        color: Colors.black,
-                                                        size: 75.r),
-                                                  ),
-                                                ))
-                                              : InkWell(
-                                                  onTap: () {},
-                                                  child: CustomImageNetwork(
-                                                    width: 150.w,
-                                                    height: 150.h,
-                                                    imageUrl: imageThree.value,
-                                                    boxFit: BoxFitWeb.contain,
-                                                  ),
-                                                ),
-                                        ),
-                                        SizedBox(
-                                          width: 60.w,
-                                        ),
-
-                                        //ToDo: here from price and to price
-                                        SizedBox(
-                                          width: 95.w,
-                                          height: 40.h,
-                                          child: RoundedLoadingButton(
-                                            color: HexColor(AppController
-                                                .appData.value.primaryColor),
-                                            successColor: AppColors.green,
-                                            controller: _btnController3,
-                                            onPressed: () {
-                                              createMeal(
-                                                      restaurantID: FirebaseAuth
-                                                          .instance
-                                                          .currentUser!
-                                                          .uid,
-                                                      mealName: mealName.text,
-                                                      mealType:
-                                                          mealType.toString(),
-                                                      mealDescription:
-                                                          mealDescription.text,
-                                                      mealPrice: mealPrice.text,
-                                                      imageOne: imageOne.value,
-                                                      imageTow: imageTow.value,
-                                                      imageThree:
-                                                          imageThree.value)
-                                                  .then((value) {
-                                                _btnController3.success();
-                                              });
-                                            },
-                                            valueColor: Colors.white,
-                                            borderRadius: 10,
-                                            child: AppTextStyle(
-                                                name: 'اضافة وجبة'),
-                                          ),
+                                        AppTextStyle(
+                                          name: 'صور للوجبة',
+                                          fontSize: 22.sp,
+                                          color: Colors.grey.shade800,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        SizedBox(
-                                          width: 94.w,
-                                          child: MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                clear();
-                                              },
-                                              child: Card(
-                                                elevation: 4,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.r)),
-                                                color: HexColor(AppController
-                                                    .appData.value.secondColor),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10.r),
-                                                  child: AppTextStyle(
-                                                    name: 'إلغاء',
-                                                    color: Colors.white,
-                                                    textAlign: TextAlign.center,
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 150.w,
+                                              height: 150.h,
+                                              child: imageOne.value == ''
+                                                  ? Card(
+                                                      child: InkWell(
+                                                      onTap: () {
+                                                        uploadMealImage(1);
+                                                      },
+                                                      child: Center(
+                                                        child: Icon(
+                                                            Icons
+                                                                .photo_size_select_actual_rounded,
+                                                            color: Colors.black,
+                                                            size: 75.r),
+                                                      ),
+                                                    ))
+                                                  : InkWell(
+                                                      onTap: () {},
+                                                      child: CustomImageNetwork(
+                                                        width: 150.w,
+                                                        height: 150.h,
+                                                        imageUrl:
+                                                            imageOne.value,
+                                                        boxFit:
+                                                            BoxFitWeb.contain,
+                                                      ),
+                                                    ),
                                             ),
-                                          ),
+                                            SizedBox(
+                                              width: 30.w,
+                                            ),
+                                            SizedBox(
+                                              width: 150.w,
+                                              height: 150.h,
+                                              child: imageTow.value == ''
+                                                  ? Card(
+                                                      child: InkWell(
+                                                      onTap: () {
+                                                        uploadMealImage(2);
+                                                      },
+                                                      child: Center(
+                                                        child: Icon(
+                                                            Icons
+                                                                .photo_size_select_actual_rounded,
+                                                            color: Colors.black,
+                                                            size: 75.r),
+                                                      ),
+                                                    ))
+                                                  : InkWell(
+                                                      onTap: () {},
+                                                      child: CustomImageNetwork(
+                                                        width: 150.w,
+                                                        height: 150.h,
+                                                        imageUrl:
+                                                            imageTow.value,
+                                                        boxFit:
+                                                            BoxFitWeb.contain,
+                                                      ),
+                                                    ),
+                                            ),
+                                            SizedBox(
+                                              width: 30.w,
+                                            ),
+                                            SizedBox(
+                                              width: 150.w,
+                                              height: 150.h,
+                                              child: imageThree.value == ''
+                                                  ? Card(
+                                                      child: InkWell(
+                                                      onTap: () {
+                                                        uploadMealImage(3);
+                                                      },
+                                                      child: Center(
+                                                        child: Icon(
+                                                            Icons
+                                                                .photo_size_select_actual_rounded,
+                                                            color: Colors.black,
+                                                            size: 75.r),
+                                                      ),
+                                                    ))
+                                                  : InkWell(
+                                                      onTap: () {},
+                                                      child: CustomImageNetwork(
+                                                        width: 150.w,
+                                                        height: 150.h,
+                                                        imageUrl:
+                                                            imageThree.value,
+                                                        boxFit:
+                                                            BoxFitWeb.contain,
+                                                      ),
+                                                    ),
+                                            ),
+                                            SizedBox(
+                                              width: 60.w,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 20.h,
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        checkColor: Colors.white,
+                                        fillColor: MaterialStateProperty.all(
+                                            HexColor(AppController
+                                                .hexColorPrimary.value)),
+                                        value: ex1,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            ex1 = value!;
+                                          });
+                                        },
+                                      ),
+                                      TextFieldAdd(
+                                        width: 200.w,
+                                        tittle: 'الإضافة الأولى',
+                                        hint: 'مثال: زيادة بطاطا',
+                                        height: 100,
+                                        heightSizeBox: 140,
+                                        controller: ex1data,
+                                        type: TextInputType.text,
+                                        enable: false,
+                                        enabledata: ex1,
+                                      ),
+                                      SizedBox(width: 8),
+                                      TextFieldAdd(
+                                        width: 100.w,
+                                        tittle: 'سعر الأضافة',
+                                        hint: 'السعر',
+                                        height: 100,
+                                        heightSizeBox: 140,
+                                        controller: ex1price,
+                                        type: TextInputType.text,
+                                        enable: false,
+                                        enabledata: ex1,
+                                      ),
+                                      SizedBox(width: 50.w)
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        checkColor: Colors.white,
+                                        fillColor: MaterialStateProperty.all(
+                                            HexColor(AppController
+                                                .hexColorPrimary.value)),
+                                        value: ex2,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            ex2 = value!;
+                                          });
+                                        },
+                                      ),
+                                      TextFieldAdd(
+                                        width: 200.w,
+                                        tittle: 'الإضافة الثانية',
+                                        hint: 'مثال: زيادة بطاطا',
+                                        height: 100,
+                                        heightSizeBox: 140,
+                                        controller: ex2data,
+                                        type: TextInputType.text,
+                                        enable: false,
+                                        enabledata: ex2,
+                                      ),
+                                      SizedBox(width: 8),
+                                      TextFieldAdd(
+                                        width: 100.w,
+                                        tittle: 'سعر الأضافة',
+                                        hint: 'السعر',
+                                        height: 100,
+                                        heightSizeBox: 140,
+                                        controller: ex2price,
+                                        type: TextInputType.text,
+                                        enable: false,
+                                        enabledata: ex2,
+                                      ),
+                                      SizedBox(width: 50.w)
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        checkColor: Colors.white,
+                                        fillColor: MaterialStateProperty.all(
+                                            HexColor(AppController
+                                                .hexColorPrimary.value)),
+                                        value: ex3,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            ex3 = value!;
+                                          });
+                                        },
+                                      ),
+                                      TextFieldAdd(
+                                        width: 200.w,
+                                        tittle: 'الإضافة الثالثة',
+                                        hint: 'مثال: زيادة بطاطا',
+                                        height: 100,
+                                        heightSizeBox: 140,
+                                        controller: ex3data,
+                                        type: TextInputType.text,
+                                        enable: false,
+                                        enabledata: ex3,
+                                      ),
+                                      SizedBox(width: 8),
+                                      TextFieldAdd(
+                                        width: 100.w,
+                                        tittle: 'سعر الأضافة',
+                                        hint: 'السعر',
+                                        height: 100,
+                                        heightSizeBox: 140,
+                                        controller: ex3price,
+                                        type: TextInputType.text,
+                                        enable: false,
+                                        enabledata: ex3,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 95.w,
+                                    height: 40.h,
+                                    child: RoundedLoadingButton(
+                                      color: HexColor(AppController
+                                          .appData.value.primaryColor),
+                                      successColor: AppColors.green,
+                                      controller: _btnController3,
+                                      onPressed: () {
+                                        if (ex1 && ex2 && ex3) {
+                                          if (ex1data.text.isNotEmpty &&
+                                              ex1price.text.isNotEmpty &&
+                                              ex2data.text.isNotEmpty &&
+                                              ex2price.text.isNotEmpty &&
+                                              ex3data.text.isNotEmpty &&
+                                              ex3price.text.isNotEmpty) {
+                                            createMeal(
+                                                    restaurantID: FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .uid,
+                                                    mealName: mealName.text,
+                                                    mealType:
+                                                        mealType.toString(),
+                                                    mealDescription:
+                                                        mealDescription.text,
+                                                    mealPrice: mealPrice.text,
+                                                    imageOne: imageOne.value,
+                                                    imageTow: imageTow.value,
+                                                    imageThree:
+                                                        imageThree.value,
+                                                    ex1data: ex1data.text,
+                                                    ex2data: ex2data.text,
+                                                    ex3data: ex3data.text,
+                                                    ex1price: ex1price.text,
+                                                    ex2price: ex2price.text,
+                                                    ex3price: ex3price.text)
+                                                .then((value) {
+                                              _btnController3.success();
+                                            });
+                                            Future.delayed(
+                                                Duration(seconds: 1));
+                                            _btnController3.reset();
+                                          } else {
+                                            getSheetError(
+                                                'يرجى تعبئة الأضافات مع السعر');
+                                            _btnController3.reset();
+                                          }
+                                        } else {
+                                          getSheetError('يرجى تفعيل الأضافات');
+                                          _btnController3.reset();
+                                        }
+                                      },
+                                      valueColor: Colors.white,
+                                      borderRadius: 10,
+                                      child: AppTextStyle(name: 'اضافة وجبة'),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  SizedBox(
+                                    width: 94.w,
+                                    child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          clear();
+                                        },
+                                        child: Card(
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r)),
+                                          color: HexColor(AppController
+                                              .appData.value.secondColor),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10.r),
+                                            child: AppTextStyle(
+                                              name: 'إلغاء',
+                                              color: Colors.white,
+                                              textAlign: TextAlign.center,
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ],

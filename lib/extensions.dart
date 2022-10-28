@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extended_image_library/extended_image_library.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:otlab_controller/my_library.dart';
 import 'package:otlab_controller/value/colors.dart';
 import 'package:otlab_controller/value/constant.dart';
 
@@ -124,6 +125,12 @@ Future createMeal({
   required String imageOne,
   required String imageTow,
   required String imageThree,
+  required String ex1data,
+  required String ex1price,
+  required String ex2data,
+  required String ex2price,
+  required String ex3data,
+  required String ex3price,
 }) async {
   if (!restaurantID.isEmpty &&
       !mealName.isEmpty &&
@@ -133,18 +140,30 @@ Future createMeal({
     if (!imageOne.isEmpty && !imageTow.isEmpty && !imageThree.isEmpty) {
       final docMeal = FirebaseFirestore.instance.collection('meals');
       List<dynamic> images = [imageThree, imageTow, imageThree];
+      var extensions = {
+        'extensions1': [ex1data, ex1price],
+        'extensions2': [ex2data, ex2price],
+        'extensions3': [ex3data, ex3price],
+      };
+      var id = getRandomString(23);
       final json = {
         'restaurantID': restaurantID,
+        'restaurantName': AppPreferences.userData['name'],
         'mealName': mealName,
         'mealDescription': mealDescription,
         'mealType': mealType,
         'mealPrice': mealPrice,
         'mealImages': images,
         'mealCreatDate': DateTime.now().toString(),
-        'mealID': getRandomString(15)
+        'mealID': getRandomString(15),
+        'latLong': GeoPoint(
+            double.parse(AppPreferences().getUserDataAsMap()['lat']),
+            double.parse(AppPreferences().getUserDataAsMap()['long'])),
+        'uid': id,
+        'extensions': extensions
       };
 
-      docMeal.add(json).then((value) {
+      docMeal.doc(id).set(json).then((value) {
         getSheetSucsses('تم إضافة الوجبة بنجاح');
       }).onError((error, stackTrace) {
         getSheetError(error.toString());
@@ -159,17 +178,21 @@ Future createMeal({
   }
 }
 
-Future createOffer(
-    {required String offerName,
-    required String offerType,
-    required String offerValue,
-    required String mealID,
-    required String image}) async {
+Future createOffer({
+  required String offerName,
+  required String offerType,
+  required String offerValue,
+  required String mealID,
+  required String image,
+  required String restaurantName,
+  required String restaurantAddress,
+}) async {
   if (!offerName.isEmpty &&
       !offerType.isEmpty &&
       !offerValue.isEmpty &&
       !mealID.isEmpty) {
     final docMeal = FirebaseFirestore.instance.collection('offers');
+
     final json = {
       'restaurantID': FirebaseAuth.instance.currentUser!.uid,
       'offerName': offerName,
@@ -178,7 +201,9 @@ Future createOffer(
       'offerCreatDate': DateTime.now().toString(),
       'mealID': mealID,
       'offerImage': image,
-      'offerId': getRandomString(18)
+      'offerId': getRandomString(18),
+      'restaurantName': restaurantName,
+      'restaurantAddress': restaurantAddress,
     };
 
     docMeal.add(json).then((value) {
