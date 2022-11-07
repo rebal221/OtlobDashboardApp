@@ -68,6 +68,15 @@ class MyBodyRestaurantState extends State<MyBodyRestaurant> {
         width: 18.r,
       ),
     ),
+    DrawerModel(
+      tittle: 'اعدادات الدفع',
+      icon: CustomSvgImage(
+        imageName: 'cash',
+        color: Colors.white,
+        height: 28.r,
+        width: 18.r,
+      ),
+    ),
   ];
 
   @override
@@ -257,7 +266,7 @@ class MyBodyRestaurantState extends State<MyBodyRestaurant> {
                               ),
                             ),
                             SizedBox(
-                              height: 380.h,
+                              height: 240.h,
                             ),
                             InkWell(
                               onTap: () {},

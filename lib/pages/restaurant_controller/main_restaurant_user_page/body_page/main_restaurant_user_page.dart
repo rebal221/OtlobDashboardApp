@@ -6,6 +6,7 @@ import 'package:otlab_controller/pages/restaurant_controller/main_restaurant_use
 import 'package:otlab_controller/pages/restaurant_controller/main_restaurant_user_page/drawer_pages/list_discount_food_page/ui/list_discount_food_page.dart';
 import 'package:otlab_controller/pages/restaurant_controller/main_restaurant_user_page/drawer_pages/list_food_page/ui/list_food_page.dart';
 import 'package:otlab_controller/pages/restaurant_controller/main_restaurant_user_page/drawer_pages/restaurant_settings/ui/restaurant_settings.dart';
+import 'package:otlab_controller/pages/restaurant_controller/main_restaurant_user_page/drawer_pages/setting_payment/payment_setting.dart';
 
 class MainRestaurantPage extends StatefulWidget {
   static int selectedIndex = AppPreferences().getDataInt(key: 's');
@@ -81,6 +82,10 @@ class MainRestaurantPageState extends State<MainRestaurantPage> {
       );
     } else if (MainRestaurantPage.selectedIndex == 3) {
       return RestaurantSettingsBody(
+        setState: setState,
+      );
+    } else if (MainRestaurantPage.selectedIndex == 4) {
+      return RestaurantSettingsPayment(
         setState: setState,
       );
     }

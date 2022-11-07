@@ -444,7 +444,7 @@ class _RestaurantSettingsBodyState extends State<RestaurantSettingsBody> {
                                                                     .ltr,
                                                             child: Obx(() {
                                                               return CheckboxListTile(
-                                                                enabled: false,
+                                                                enabled: true,
                                                                 selected: controller
                                                                     .paymentMethodList[
                                                                         index]
